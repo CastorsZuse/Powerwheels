@@ -22,7 +22,7 @@ void loop() {
   digitalWrite(M1_engage, HIGH);
   digitalWrite(M2_engage, HIGH);
   RC_duration = constrain(pulseIn(rc_pin, HIGH), 1000, 2000);
-  RC_location = map(RC_duration, 1000, 2000, 056, 257);
+  RC_location = map(RC_duration, 1000, 2000, 046, 257);
   actual_location = analogRead(Position_pin);
   if((actual_location <= RC_location + deadband) && (actual_location >= RC_location - deadband)) {
     digitalWrite(Extend_pin, LOW);
