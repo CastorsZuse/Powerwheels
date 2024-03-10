@@ -9,7 +9,7 @@ int actual_location;
 int deadband = 10;
 
 void setup() {
-  SERIAL.begin(115200);
+  SerialL.begin(115200);
   pinMode(rc_pin, INPUT);
   pinMode(Extend_pin, OUTPUT);
   pinMode(Retract_pin, OUTPUT);
