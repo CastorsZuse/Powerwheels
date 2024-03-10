@@ -29,16 +29,20 @@ void loop() {
   if((actual_location <= RC_location + deadband) && (actual_location >= RC_location - deadband)) {
     digitalWrite(Extend_pin, LOW);
     digitalWrite(Retract_pin, LOW);
+    Serial.println("Idle");
+
   }
 
   if(actual_location > RC_location + deadband) {
     digitalWrite(Extend_pin, LOW); 
     digitalWrite(Retract_pin, HIGH);
+    Serial.println("Retract");
   }
 
   if(actual_location < RC_location - deadband) {
     digitalWrite(Extend_pin, HIGH);
     digitalWrite(Retract_pin, LOW);
+    Serial.println("Extend");
   }
 
 
