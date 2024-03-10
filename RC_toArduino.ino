@@ -3,7 +3,6 @@ const int Extend_pin = 7;
 const int Retract_pin = 8;
 const int Position_pin = A5;
 const int M1_engage = A0;
-const int M1_engage = A0;
 int RC_duration;
 int RC_location;
 int actual_location;
