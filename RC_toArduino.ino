@@ -9,6 +9,7 @@ int actual_location;
 int deadband = 10;
 
 void setup() {
+  SERIAL.begin(115200);
   pinMode(rc_pin, INPUT);
   pinMode(Extend_pin, OUTPUT);
   pinMode(Retract_pin, OUTPUT);
@@ -40,5 +41,11 @@ void loop() {
     digitalWrite(Retract_pin, LOW);
   }
 
-  delay(50);
+
+  Serial.print("Duration: ");
+  Serial.print(RC_duration);
+  Serial.print("Location: ");
+  Serial.print(RC_location);
+  Serial.print("Actual Location: ");
+  Serial.println(actual_location);
 }
