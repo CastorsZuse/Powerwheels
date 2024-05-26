@@ -1,0 +1,14 @@
+#include <ServoInput.h>
+
+ServoInputPin<2> ch;
+const int LED_Pin = LED_BUILTIN; // built-in LED (pin 13 on Uno)
+
+void setup() {
+	pinMode(LED_Pin, OUTPUT);
+	ch.attach();
+}
+
+void loop() {
+	boolean state = ch.getBoolean();
+	digitalWrite(LED_Pin, state);
+}
