@@ -1,0 +1,52 @@
+byte PWM_PIN1 = 1;
+byte PWM_PIN2 = 2; // input from rcvr throttle to digi pin 2
+byte PWM_PIN3 = 3; // input from rcvr  gear to digi pin 3
+
+int pwm_value1;
+int pwm_value2;
+int pwm_value3;
+
+const int ledPin8 = 8;
+const int ledPin9 = 9;  // to brake light led
+const int ledPin10 = 10; // to driving lights relay
+
+
+void setup() {
+pinMode(PWM_PIN1, INPUT);
+pinMode(PWM_PIN2, INPUT);
+pinMode(PWM_PIN3, INPUT);
+
+pinMode(ledPin8, OUTPUT);
+pinMode(ledPin9, OUTPUT);
+pinMode(ledPin10, OUTPUT);
+
+Serial.begin(115200);
+}
+
+void loop() {
+pwm_value1 = pulseIn(PWM_PIN1, HIGH);
+pwm_value2 = pulseIn(PWM_PIN2, HIGH);
+pwm_value3 = pulseIn(PWM_PIN3, HIGH);
+
+if (pwm_value1 > 1470) {
+digitalWrite(ledPin8, HIGH);
+Serial.println(pwm_value1);
+}
+else {
+digitalWrite(ledPin8, LOW);
+}
+ if (pwm_value2 < 1465) {
+digitalWrite(ledPin9, HIGH);  // turn brake light on
+Serial.println(pwm_value2);
+}
+else {
+digitalWrite(ledPin9, LOW);
+}
+if (pwm_value3 > 1470) {
+digitalWrite(ledPin10, HIGH);
+Serial.println(pwm_value3);
+}
+else {
+digitalWrite(ledPin10, LOW);
+}
+}
