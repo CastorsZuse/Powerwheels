@@ -1,52 +1,70 @@
-byte PWM_PIN1 = 1;
-byte PWM_PIN2 = 2; // input from rcvr throttle to digi pin 2
-byte PWM_PIN3 = 3; // input from rcvr  gear to digi pin 3
+#include <ServoInput.h>
 
-int pwm_value1;
-int pwm_value2;
-int pwm_value3;
+float percent_threshold = .7;
+float percent1;
+float percent2;
+float percent3;
+float percent4;
 
-const int ledPin8 = 8;
-const int ledPin9 = 9;  // to brake light led
-const int ledPin10 = 10; // to driving lights relay
+int builtin_status;
 
+ServoInputPin<1> ch1;
+ServoInputPin<0> ch2;
+ServoInputPin<2> ch3;
+ServoInputPin<3> ch4;
 
 void setup() {
-pinMode(PWM_PIN1, INPUT);
-pinMode(PWM_PIN2, INPUT);
-pinMode(PWM_PIN3, INPUT);
-
-pinMode(ledPin8, OUTPUT);
-pinMode(ledPin9, OUTPUT);
-pinMode(ledPin10, OUTPUT);
-
-Serial.begin(115200);
+  pinMode(LED_BUILTIN, OUTPUT);
+  pinMode(4, OUTPUT);
+  pinMode(5, OUTPUT);
+  pinMode(6, OUTPUT);
+  pinMode(7, OUTPUT);
+  ch1.attach();
+  ch2.attach();
+  ch3.attach();
+  ch4.attach();
 }
 
 void loop() {
-pwm_value1 = pulseIn(PWM_PIN1, HIGH);
-pwm_value2 = pulseIn(PWM_PIN2, HIGH);
-pwm_value3 = pulseIn(PWM_PIN3, HIGH);
+  //boolean state2 = ch2.getBoolean();
+  //boolean state3 = ch3.getBoolean();
+  //boolean state18 = ch18.getBoolean();
+  //boolean state19 = ch19.getBoolean();
 
-if (pwm_value1 > 1470) {
-digitalWrite(ledPin8, HIGH);
-Serial.println(pwm_value1);
-}
-else {
-digitalWrite(ledPin8, LOW);
-}
- if (pwm_value2 < 1465) {
-digitalWrite(ledPin9, HIGH);  // turn brake light on
-Serial.println(pwm_value2);
-}
-else {
-digitalWrite(ledPin9, LOW);
-}
-if (pwm_value3 > 1470) {
-digitalWrite(ledPin10, HIGH);
-Serial.println(pwm_value3);
-}
-else {
-digitalWrite(ledPin10, LOW);
-}
+  builtin_status = LOW;
+
+  percent1 = ch1.getPercent();
+  percent2 = ch2.getPercent();
+  percent3 = ch3.getPercent();
+  percent4 = ch4.getPercent();
+
+  if (percent1 >= percent_threshold) {
+    digitalWrite(4, HIGH);
+    builtin_status = HIGH;
+  } else {
+    digitalWrite(4, LOW);
+  }
+
+  if (percent2 >= percent_threshold) {
+    digitalWrite(5, HIGH);
+    builtin_status = HIGH;
+  } else {
+    digitalWrite(5, LOW);
+  }
+
+  if (percent3 >= percent_threshold) {
+    digitalWrite(6, HIGH);
+    builtin_status = HIGH;
+  } else {
+    digitalWrite(6, LOW);
+  }
+
+  if (percent4 >= percent_threshold) {
+    digitalWrite(7, HIGH);
+    builtin_status = HIGH;
+  } else {
+    digitalWrite(7, LOW);
+  }
+
+  digitalWrite(LED_BUILTIN, builtin_status);
 }
