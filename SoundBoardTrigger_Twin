@@ -15,10 +15,10 @@ ServoInputPin<3> ch4;
 
 void setup() {
   pinMode(LED_BUILTIN, OUTPUT);
-  pinMode(4, OUTPUT);
-  pinMode(5, OUTPUT);
-  pinMode(6, OUTPUT);
   pinMode(7, OUTPUT);
+  pinMode(6, OUTPUT);
+  pinMode(5, OUTPUT);
+  pinMode(4, OUTPUT);
   ch1.attach();
   ch2.attach();
   ch3.attach();
@@ -39,31 +39,31 @@ void loop() {
   percent4 = ch4.getPercent();
 
   if (percent1 >= percent_threshold) {
-    digitalWrite(4, HIGH);
+    digitalWrite(7, HIGH);
     builtin_status = HIGH;
   } else {
-    digitalWrite(4, LOW);
+    digitalWrite(7, LOW);
   }
 
   if (percent2 >= percent_threshold) {
-    digitalWrite(5, HIGH);
-    builtin_status = HIGH;
-  } else {
-    digitalWrite(5, LOW);
-  }
-
-  if (percent3 >= percent_threshold) {
     digitalWrite(6, HIGH);
     builtin_status = HIGH;
   } else {
     digitalWrite(6, LOW);
   }
 
-  if (percent4 >= percent_threshold) {
-    digitalWrite(7, HIGH);
+  if (percent3 >= percent_threshold) {
+    digitalWrite(5, HIGH);
     builtin_status = HIGH;
   } else {
-    digitalWrite(7, LOW);
+    digitalWrite(5, LOW);
+  }
+
+  if (percent4 >= percent_threshold) {
+    digitalWrite(4, HIGH);
+    builtin_status = HIGH;
+  } else {
+    digitalWrite(4, LOW);
   }
 
   digitalWrite(LED_BUILTIN, builtin_status);
